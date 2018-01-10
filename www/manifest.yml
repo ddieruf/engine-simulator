@@ -1,0 +1,8 @@
+﻿---
+applications:
+- name: engine-simulator-www
+  host: sensors
+  instances: 1
+  memory: 512M
+  disk_quota: 512M
+  buildpack: staticfile_buildpack

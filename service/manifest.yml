@@ -1,0 +1,10 @@
+﻿---
+applications:
+- name: engine-simulator-services
+  host: sensordata
+  instances: 1
+  memory: 512M
+  disk_quota: 512M
+  buildpack: dotnet_core_buildpack
+  services:
+    - mysql-2gb

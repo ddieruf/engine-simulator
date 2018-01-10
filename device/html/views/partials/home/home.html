@@ -1,0 +1,7 @@
+<div class="">
+	<div uib-alert ng-repeat="alert in alerts" ng-class="['alert','alert-' + (alert.type || 'warning')]" close="alerts.splice($index, 1)">{{alert.msg}}</div>
+	<Br><Br>
+	<div>
+		<button class="btn-lg" ng-click="stopEngine" type="button">Stop Engine</button>
+	</div>
+</div>

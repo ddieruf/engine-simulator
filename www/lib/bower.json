@@ -1,0 +1,34 @@
+{
+  "name": "bower",
+  "authors": [
+    "ddieruf <david@dierufventures.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "^1.5.8",
+    "angular-bootstrap": "^2.0.0",
+    "angular-resource": "^1.5.8",
+    "angular": "1.5.8",
+    "bootstrap": "^3.3.7",
+    "angular-touch": "^1.5.8",
+    "Flot": "flot#^0.8.3",
+    "angular-ui-router": "^0.3.1",
+    "parsleyjs": "^2.5.1",
+    "loaders.css": "^0.1.2",
+    "modernizr": "^3.3.1",
+    "ng-table": "^2.1.0",
+    "moment": "^2.15.1",
+    "oclazyload": "^1.0.9"
+  }
+}

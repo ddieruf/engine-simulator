@@ -1,0 +1,29 @@
+POST https://sensordata.apps.cloudyaws.io/sensordata HTTP/1.1
+content-type: application/json
+{'timestamp': 1514836843.795074, 'datavalue': '0.0', 'vin': 'engine11', 'sensorname': 'Eng Coolant Pres'}
+
+###
+
+GET https://sensordata.apps.cloudyaws.io/sensordata/all HTTP/1.1
+
+###
+POST https://sensordata.apps.cloudyaws.io/sensordata HTTP/1.1
+content-type: application/json
+{"vin":"engine22","sensorname":"Engine RPM","datavalue":"1234","timestamp":1234566768877}
+
+###
+
+DELETE https://sensordata.apps.cloudyaws.io/sensordata/alldata HTTP/1.1
+
+###
+
+DELETE https://sensordata.apps.cloudyaws.io/engine/alldata HTTP/1.1
+
+###
+
+GET https://sensordata.apps.cloudyaws.io/engine/all HTTP/1.1
+
+###
+POST https://sensordata.apps.cloudyaws.io/engine HTTP/1.1
+content-type: application/json
+{"vin":"engine22","sensors":"Eng Oil Temp,Eng Oil Pres,GPS Altitude,GPS Latitude,GPS Longitude,Eng Coolant Pres,Gbox Oil Temp,Fuel Pres,Bat Volts ECU"}

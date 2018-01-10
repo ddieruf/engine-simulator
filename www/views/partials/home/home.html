@@ -1,0 +1,172 @@
+<style>
+.ngdialog.ngdialog-theme-default {
+  padding-bottom: 0;
+  padding-top: 5%;
+}
+.text-sm {
+	font-size: 10px;
+}
+.text-md {
+	font-size: 16.6px;
+}
+.text-lg {
+	font-size: 30px;
+}
+.parsley-errors-list {
+  font-size: 12px;
+  line-height: 12px;
+}
+#workout{
+	padding: 0;
+	margin: 0;
+}
+#workout #buttonWrapper{
+		width:100%;
+		text-align: center;
+		padding: 15px;
+}
+#workout #countSensorWrapper{
+		width: 100%;
+		text-align: center;
+}
+
+#workout #plotWrapper{
+	width: 100%;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+}
+#workout #plotWrapper #flot-container {
+	width:100%;
+	height: 200px;
+	padding: 0;
+	margin: 0;
+}
+#workout #plotWrapper #flot-container #flot-placeholder {
+	/*font-size: 14px;
+	line-height: 1.2em;*/
+	border: 0;
+	width:100%;
+	padding: 0;
+	margin: 0;
+}
+.legend table {
+	border-spacing: 2px;
+}
+.flot-base, .flot-overlay{
+	padding:0 !important;
+	margin:0 !important;
+}
+.flot-x-axis div.flot-tick-label {
+	font-size: smaller;
+	color: gray;
+	padding: 5,0,0,0 !important;
+	margin: 0 !important;
+}
+#workout #countSensorWrapper .countSensor{
+		display: inline-block;
+			width: 32%;/*3 wide*/
+		text-align: center;
+	}
+</style>
+<div uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" ng-class="['alert','alert-' + (alert.type || 'warning')]" close="alerts.splice($index, 1)">{{alert.msg}}</div>
+<div class="row m">
+	<!-- Engine listing -->
+	<div class="col-sm-4">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-primary m0">
+					<div class="panel-heading m0 p-sm">
+						<div class="col-sm-6 text-left"><h3 class="m0">Engines</h3></div>
+						<div class="col-sm-push-6 text-right">
+							&nbsp;<!--<button type="button" class="btn btn-sm btn-primary" ng-click="addEngine($event)"><i class="fa fa-plus"></i>&nbsp;Add</button>-->
+						</div>
+					</div>
+					<div class="panel-body p0">
+						<div class="col-sm-12 scrollable p0 pv" style="height:200px;overflow-y:scroll">
+							<table class="table table-striped table-condensed">
+								<col width="80%">
+								<col width="20%">
+								<tbody>
+									<tr ng-repeat="engine in listEngines()">
+										<td class="text-left" ng-style="(engine.vin === activeVin()?'background-color:green':'')">{{engine.vin}}</td>
+										<td>
+											<button type="button" class="btn btn-sm btn-danger" ng-click="clearEngineView(engine)" title="View" ng-show="(engine.vin === activeVin() && startEnabled === false)"><i class="fa fa-stop"></i></button>
+											<button type="button" class="btn btn-sm btn-default" ng-click="viewEngine(engine)" title="View" ng-show="(engine.vin !== activeVin())"><i class="fa fa-search"></i></button>
+											<!--&nbsp;<button type="button" class="btn btn-sm btn-danger" ng-click="removeEngine(engine)" title="Remove"><i class="fa fa-remove"></i></button>-->
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Alarms -->
+	<div class="col-sm-8">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-primary m0">
+					<div class="panel-heading m0 p-sm">
+						<div class="col-sm-6 text-left"><h3 class="m0">Alarms</h3></div>
+						<div class="col-sm-push-6 text-right">
+							&nbsp;
+						</div>
+					</div>
+					<div class="panel-body p0">
+						<div class="col-sm-12 p0 pv" style="height:200px;overflow-y:scroll">
+							<table class="table table-striped table-condensed">
+								<col width="90%">
+								<col width="10%">
+								<tbody>
+									<tr ng-repeat="alarm in alarmList">
+										<td ng-click="alarmList.splice($index, 1)">{{alarm.title}}</td>
+										<td>
+											<button type="button" class="btn btn-sm btn-warning" ng-click="alarmList.splice($index, 1)">Dismiss</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- VALUES -->
+<div class="row m">
+	<div class="col-sm-12">
+		<div id="countSensorWrapper" class="row mb-sm">
+			<div class="countSensor col-sm-2" ng-repeat="countSensor in countSensors">
+				<div class="panel panel-info m0">
+					<div class="panel-body p-sm">
+						<div class="text-center align-middle text-md" ng-style="{color:countSensor.color}">
+							<div>
+								<div>
+									{{(countSensor.raw.length > 0 ? countSensor.raw[countSensor.raw.length-1] : 0) | decimals: 2}}
+								</div>
+								<div class="inline"><small class="text-muted">{{average(countSensor.raw) | decimals: 2}}avg</small></div>
+							</div>
+							<div>
+								<div class="inline"  ng-show="(countSensor.displayName !== null)">{{countSensor.displayName}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- CHART -->
+<div class="row" id="workout">
+	<div class="col-sm-12 p0">
+		<div id="plotWrapper">
+		<div id="flot-container">
+			<div id="flot-placeholder"></div>
+		</div>
+	</div>
+	</div>
+</div>
